@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title th:text="${profile.name} + ' | ' + ${profile.title}">Anil Kushwah | Full Stack Developer</title>
+<meta name="description" content="Full Stack Developer - React.js, Next.js, Node.js, Java Spring Boot, MongoDB, MySQL. Dewas, India.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<th:block th:replace="~{fragments/icons :: icons}"></th:block>
+<div id="bar"></div><div class="blob b1"></div><div class="blob b2"></div>
+
+<nav><div class="w"><a class="logo" href="#top">anil<b>.dev</b></a>
+<ul><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#exp">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#certs">Certificates</a></li><li><a href="#contact">Contact</a></li></ul></div></nav>
+
+<header id="top" class="w hero">
+<div><span class="tag"><i></i>Open to opportunities</span>
+<h1>Hi, I'm <span class="g" th:text="${profile.name}">Anil Kushwah</span></h1>
+<div class="role">I'm a <b id="ty" th:attr="data-roles=${#strings.listJoin(profile.roles, '|')}"></b></div>
+<p th:text="${profile.tagline}"></p>
+<div class="btns"><a class="btn p" href="#projects">View Projects</a><a class="btn" href="#contact">Contact Me</a></div>
+<div class="soc">
+<a class="ic" th:each="s : ${socials}" th:href="${s.url}" th:attr="aria-label=${s.label},title=${s.label}" target="_blank" rel="noopener"><svg><use th:href="'#' + ${s.icon}"/></svg></a>
+</div></div>
+<div class="pic"><div class="ring"><img th:alt="${profile.name}" th:src="@{/img/profile.jpg}" alt="Profile"></div>
+<span class="fb f1">&lt;React /&gt;</span><span class="fb f2">Spring Boot</span><span class="fb f3">MongoDB</span></div>
+</header>
+
+<section id="about"><div class="w"><h2 class="rv">About <span class="g">Me</span></h2><p class="sub rv">Developer with a business mindset</p>
+<div class="card rv"><p th:text="${profile.about}"></p></div>
+<div class="stats"><div class="card stat rv" th:each="st : ${stats}"><b class="g" th:text="${st.value}"></b><span th:text="${st.label}"></span></div></div></div></section>
+
+<section id="skills"><div class="w"><h2 class="rv">Tech <span class="g">Skills</span></h2><p class="sub rv">Tools I use to build and ship</p>
+<div class="mq rv"><div id="mq"><span th:each="m : ${marquee}" th:text="${m}"></span><span th:each="m : ${marquee}" th:text="${m}" aria-hidden="true"></span></div></div>
+<div class="grid">
+<div class="card rv" th:each="g : ${skillGroups}"><h3 th:text="${g.title}"></h3><div class="chips"><span class="chip" th:each="i : ${g.items}" th:text="${i}"></span></div></div>
+</div></div></section>
+
+<section id="exp"><div class="w"><h2 class="rv"><span class="g">Experience</span></h2><p class="sub rv">Professional journey</p>
+<div class="tl"><div class="card rv" th:each="e : ${experience}"><small th:text="${e.period}"></small><h3 th:text="${e.role} + ' - ' + ${e.company}"></h3>
+<ul><li th:each="p : ${e.points}" th:text="${p}"></li></ul></div></div></div></section>
+
+<section id="projects"><div class="w"><h2 class="rv">Featured <span class="g">Projects</span></h2><p class="sub rv">Live client work and full-stack builds</p>
+<div class="grid">
+<div class="card rv" th:each="p : ${projects}"><h3 th:text="${p.title}"></h3><p th:text="${p.description}"></p>
+<div class="chips"><span class="chip" th:each="s : ${p.stack}" th:text="${s}"></span></div>
+<div class="links">
+<a th:if="${not #strings.isEmpty(p.liveUrl)}" th:href="${p.liveUrl}" target="_blank" rel="noopener" aria-label="Live Demo" title="Live Demo"><svg><use href="#ex"/></svg></a>
+<a th:if="${not #strings.isEmpty(p.codeUrl)}" th:href="${p.codeUrl}" target="_blank" rel="noopener" aria-label="Source Code" title="Source Code"><svg><use href="#gh"/></svg></a>
+</div></div>
+</div></div></section>
+
+<section id="certs"><div class="w"><h2 class="rv">Certificates &amp; <span class="g">Training</span></h2><p class="sub rv">Verified learning</p>
+<div class="grid">
+<div class="card rv" th:each="c : ${certificates}"><h3 th:text="${c.title}"></h3><p th:text="${c.detail}"></p>
+<div class="links" th:if="${not #strings.isEmpty(c.link)}"><a th:href="${c.link}" target="_blank" rel="noopener" aria-label="Verify badge" title="Verify badge"><svg><use href="#bd"/></svg></a></div></div>
+</div></div></section>
+
+<section id="contact"><div class="w"><h2 class="rv">Let's <span class="g">Connect</span></h2><p class="sub rv">Open to full-time roles, internships and freelance work</p>
+<div class="ct">
+<a class="card rv" th:each="s : ${socials}" th:href="${s.url}" th:attr="target=${#strings.startsWith(s.url,'http')} ? '_blank' : '_self'" rel="noopener"><span class="ic"><svg><use th:href="'#' + ${s.icon}"/></svg></span><small th:text="${s.label}"></small></a>
+</div></div></section>
+
+<footer>&copy; 2026 <span th:text="${profile.name}">Anil Kushwah</span> - <span th:text="${profile.location}">Dewas, India</span></footer>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
